@@ -1,12 +1,11 @@
-// 用递归算法实现，数组长度为5且元素的随机数在2-32间不重复的值
+// 写一个方法去掉字符串中的空格
 
-function buildArray(arr,length,min,max){
-  var num = Math.floor(Math.random()*(max-min+1)) + min;
-  if(!arr.includes(num)){
-    arr.push(num)
-  }
-  return arr.length === length ? arr : buildArray(arr,length,min,max)
+function removeBlankSpace(str){
+  var string = str.split(" ").join("")
+  return string
 }
-
-var s = buildArray([],5,2,32)
+// Regex: string.replace(/\s/g, '')
+// join: string.split(' ').join('')
+var a = '123 we rweqw qwe qw'
+var s = removeBlankSpace(a)
 console.log(s)
