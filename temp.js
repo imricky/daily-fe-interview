@@ -1,12 +1,25 @@
-// 统计某一字符或字符串在另一个字符串中出现的次数
+// 写一个加密字符串的方法
 
-//方法1：
-function timesCount(str,bigStr) {
-  var replaceStr = bigStr.split(str);
-  
-  return replaceStr.length -1 
+//方法1：encrypt/Decrypt
+function encrypt(str) {
+  var final = str.split('').map((s) => {
+    return String.fromCharCode(s.charCodeAt() +1)
+  }).join('')
+  return final;
 }
+
 var str = 'qw'
-var bigStr = 'qw12qw'
-var result = timesCount(str,bigStr)
+var result = encrypt(str)
+console.log(result)
+
+
+function decrypt(str) {
+  var final = str.split('').map((s) => {
+    return String.fromCharCode(s.charCodeAt() - 1)
+  }).join('')
+  return final;
+}
+
+var str = 'rx'
+var result = decrypt(str)
 console.log(result)
