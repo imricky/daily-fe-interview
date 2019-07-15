@@ -1,12 +1,12 @@
-// 写一个去除制表符和换行符的方法  \t(Tabs)   \n(Newline)
+// 统计某一字符或字符串在另一个字符串中出现的次数
 
 //方法1：
-function removeTabsAndNewline(str) {
-  // var temp = str.replace(/\t/g,'');
-  // var final = temp.replace(/\n/g,'')
-  var final = str.replace(/\t|\n|\r/g,'')
-  return final
+function timesCount(str,bigStr) {
+  var replaceStr = bigStr.split(str);
+  
+  return replaceStr.length -1 
 }
-var a = 'qwe\tqweqwe\nqwe\t\n'
-var result = removeTabsAndNewline(a)
+var str = 'qw'
+var bigStr = 'qw12qw'
+var result = timesCount(str,bigStr)
 console.log(result)
