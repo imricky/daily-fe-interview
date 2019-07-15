@@ -1,25 +1,14 @@
-// 写一个加密字符串的方法
+// 一道算法题，一个数组中找出所有相同的元素，并且做出分类，在彩笔白板上写完，面试官笑了一下，js写还真方便。
 
-//方法1：encrypt/Decrypt
-function encrypt(str) {
-  var final = str.split('').map((s) => {
-    return String.fromCharCode(s.charCodeAt() +1)
-  }).join('')
-  return final;
+function sameElement(arr){
+  var final = arr.reduce((total,curValue,curIndex,arr)=>{
+    total[curValue] != void 0 ? total[curValue] += 1 : total[curValue] = 1
+    return total;
+  },{})
+  return final
 }
 
-var str = 'qw'
-var result = encrypt(str)
-console.log(result)
+var a = ['12','qw','12','qw','asd','qw','asd','asq']
 
-
-function decrypt(str) {
-  var final = str.split('').map((s) => {
-    return String.fromCharCode(s.charCodeAt() - 1)
-  }).join('')
-  return final;
-}
-
-var str = 'rx'
-var result = decrypt(str)
+var result = sameElement(a);
 console.log(result)
