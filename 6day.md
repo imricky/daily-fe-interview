@@ -74,13 +74,30 @@ input的focus事件会触发锚点定位，我们可以利用label当触发器�
 
 ## 用css创建一个三角形，并简述原理
 ```css
-
+<body>
+  <div id="tran"></div>
+</body>
+#tran{
+  width:0;
+  height:0;
+  border-top:20px solid green;
+  border-right:15px solid transparent;
+  border-left:15px solid transparent;
+  border-bottom:20px solid transparent;
+}
+原理：一边有颜色，其他三个边都是透明的 就可以成为一个三角形
+创建一个div，宽高都为0，实现效果如下，发现border的四个边都是一个三角形，要实现三角形只需将其中几个边background设置为transparent，即可得到三角形
 ```
 
-## 写一个去除制表符和换行符的方法
+## 写一个去除制表符和换行符的方法  \t(Tabs)   \n(Newline)
 ```javascript
-
+function removeTabsAndNewline(str) {
+  // var temp = str.replace(/\t/g,'');
+  // var final = temp.replace(/\n/g,'')
+  var final = str.replace(/\t|\n|\r/g,'')
+  return final
+}
+var a = 'qwe\tqweqwe\nqwe\t\n'
+var result = removeTabsAndNewline(a)
+console.log(result)
 ```
-
-解决方案一：晚上你回来，明天去杭师大附属医院看病，后天直接搬绿城杨柳郡
-解决方案二：我晚上回家带病历本去你那边，明早在你那边找个医院看病，看完病去看房子
