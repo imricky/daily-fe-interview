@@ -1,10 +1,12 @@
 // 简要描述下什么是回调函数并写一个例子出来
 
-function callbackFun(data){
-  return Object.prototype.toString.call(data).replace(/\[object\s|\]/g,'')
+function callback() {
+  alert("I am in the callback!");
 }
 
-var a = ['12','qw','12','qw','asd','qw','asd','asq']
+function work(func) {
+  alert("I am calling the callback!");
+  func(); 
+}
 
-var result = callbackFun(a);
-console.log(result)
+work(callback);
