@@ -73,4 +73,55 @@ height: 180px;
 闭包的缺点2，因为变量不会被垃圾回收所以有一定的内存占用问题。
 
 
+
+代码片段一。
+```js
+　　var name = "The Window";
+
+　　var object = {
+　　　　name : "My Object",
+
+　　　　getNameFunc : function(){
+　　　　　　return function(){
+　　　　　　　　return this.name;
+　　　　　　};
+
+　　　　}
+
+　　};
+
+　　alert(object.getNameFunc()());
+```
+
+代码片段二。
+```js
+　　var name = "The Window";
+
+　　var object = {
+　　　　name : "My Object",
+
+　　　　getNameFunc : function(){
+　　　　　　var that = this;
+　　　　　　return function(){
+　　　　　　　　return that.name;
+　　　　　　};
+
+　　　　}
+
+　　};
+
+　　alert(object.getNameFunc()());
+```
+
+尝试解答代码段一：
+```js
+getNameFunc: function() {//假设函数名为Ａ
+return function()/*假设函数名为Ｂ*/ { return this.name; };
+}
+```
+在函数里面构建函数的时候，闭包产生。
+在函数Ｂ内调用函数Ａ的this.name,由于函数Ａ没有name属性，所以就去找全局变量name，找到了，所以返回“The Window”，要是没有找到，则返回“undefined”。
+
 ## [软技能] 你最喜欢用哪些编辑器？喜欢它的理由是什么？
+
+webstorm ，功能及其强大而且很全
