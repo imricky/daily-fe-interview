@@ -32,7 +32,33 @@
 
 
 ## [js] 写一个数组去重的方法（支持多维数组）
+```js
+// 数组去重
 
+function removeDumpArr(arr) {
+  let final = [];
+  for(let i in arr){
+    if(arr[i] instanceof Array){
+      removeDumpArr(arr[i])
+    }else{
+      if(final.indexOf(arr[i]) == -1){
+        final.push(arr[i])
+      }
+    }
+  }
+  return final;
+}
+
+
+//方法二。set
+// var removeDumpArr = (arr) => {
+//   return [...new Set(arr)]
+// }
+
+var a = [1,2,3,4,3,2,4,5,6,[1,2,[1,4]]]
+var result = removeDumpArr(a)
+console.log(result)
+```
 
 
 ## [软技能] 对于加班你是怎么看的？
