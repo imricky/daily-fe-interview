@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-// 写一个验证身份证号的方法
 
 //方法1：
 function validateIDCard(val){
