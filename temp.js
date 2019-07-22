@@ -1,15 +1,18 @@
 
-//你对new操作符的理解是什么？手动实现一个new方法
-function objectFactory() {
+//如何快速让一个数组乱序，写出来
+function shuffle(array) {
+  var _array = array.concat();
 
-  var obj = new Object(),
+  for (var i = _array.length -1 ; i>0; i-- ) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = _array[i];
+    _array[i] = _array[j];
+    _array[j] = temp;
+  }
 
-  Constructor = [].shift.call(arguments);
+  return _array;
+}
 
-  obj.__proto__ = Constructor.prototype;
-
-  var ret = Constructor.apply(obj, arguments);
-
-  return typeof ret === 'object' ? ret : obj;
-
-};
+var a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+var res = shuffle(a);
+console.log(res)
