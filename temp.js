@@ -1,10 +1,15 @@
-//写一个方法验证是否为中文 
+//你对new操作符的理解是什么？手动实现一个new方法
 
-function isCHN(str){
-  var reg = /^[\u4e00-\u9fa5]+$/;
-  return reg.test(str);
-}
+function objectFactory() {
 
-var a = '你哈'
-var result = isCHN(a)
-console.log(result)
+  var obj = new Object(),
+
+  Constructor = [].shift.call(arguments);
+
+  obj.__proto__ = Constructor.prototype;
+
+  var ret = Constructor.apply(obj, arguments);
+
+  return typeof ret === 'object' ? ret : obj;
+
+};

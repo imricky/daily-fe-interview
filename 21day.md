@@ -5,6 +5,8 @@
 不同点：
 disabled以后，无法获取值，而readonly以后，还是可以获取值的。
 
+disabled 不能focus，submit的时候也不会把这个值包括进来
+
 ## [css] 说说你对line-height是如何理解的？
 
 基线位置是由字体确定的，css的line-height指的是一行字的高度，包含了字间距，实际上就是下一行的基线到上一行的基线距离。
