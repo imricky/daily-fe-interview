@@ -47,5 +47,11 @@ Function.prototype.bind3 = function (context) {
   return fBound;
 }
 
+//-------------分割线
+//写一个获取数组的最大值、最小值的方法
+var a = [12,3,5,6,8,20,15]
+var b = Math.max.apply(null,a);
+console.log(b)
+
 
 
