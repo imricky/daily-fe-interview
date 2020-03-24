@@ -48,9 +48,22 @@ Function.prototype.bind3 = function (context) {
 }
 
 //-------------分割线
-//写一个获取数组的最大值、最小值的方法
-var a = [12,3,5,6,8,20,15]
-var b = Math.max.apply(null,a);
+//写一个方法把0和1互转（0置1，1置0）
+function change(str) {
+  let a = str.split('').map((i)=>{
+    if(i==='1'){
+      i = '0';
+      return i;
+    }
+    if(i==='0'){
+      i = '1';
+      return i;
+    }
+  }).join('')
+  return a
+}
+var a = '10201040101001'
+var b = change(a)
 console.log(b)
 
 
