@@ -1,70 +1,47 @@
+// 无重复字符的最长子串
+// 给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
 
-//实现bind方法
-//第一版,bind不传参数
-Function.prototype.bind0 = function (context) {
-  var self = this;
-  return function(){
-    return self.apply(context);
+// 示例 1:
+
+// 输入: "abcabcbb"
+// 输出: 3 
+// 解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
+// 示例 2:
+
+// 输入: "bbbbb"
+// 输出: 1
+// 解释: 因为无重复字符的最长子串是 "b"，所以其长度为 1。
+// 示例 3:
+
+// 输入: "pwwkew"
+// 输出: 3
+// 解释: 因为无重复字符的最长子串是 "wke"，所以其长度为 3。
+//      请注意，你的答案必须是 子串 的长度，"pwke" 是一个子序列，不是子串。
+var lengthOfLongestSubstring = function (s) {
+  if (s.length === 0) return 0
+  let nums = [s[0]];
+  let res = 1;
+  for (let i = 1; i < s.length; i++) {
+      let index = nums.indexOf(s[i]);
+      if (index < 0) {
+          nums.push(s[i]);
+      } else {
+          res = res > nums.length ? res : nums.length;
+          nums.splice(0, index + 1);
+          nums.push(s[i]);
+      }
   }
-}
+  return res > nums.length ? res : nums.length;
+};
 
-//bind传参数  .bind(foo,'test')
-Function.prototype.bind1 = function (context) {
-  var self = this;
-  var args = Array.prototype.slice.call(arguments,1);
-  return function () {
-    // 这个时候的arguments是指bind返回的函数传入的参数
-    var bindArgs = Array.prototype.slice.call(arguments);
-    return self.apply(context,args.concat(bindArgs));
-  }
-}
+// abcabcbb
+// bbbbb
+// pwwkew
+// aab
+// dvdf
+// "aabaab!bb"
 
-Function.prototype.bind2 = function (context) {  
-  var self = this;
-  var args = Array.prototype.call(arguments,1);
-  var fBound = function(){
-    var bindArgs = Array.prototype.call(arguments);
-    return self.apply(this instanceof fBound ? this:context,args.concat(bindArgs));
-  }
-  fBound.prototype = self.prototype;
-  return fBound;
-}
-
-//完全版本
-Function.prototype.bind3 = function (context) {
-  if (typeof this !== "function") {
-    throw new Error("Function.prototype.bind - what is trying to be bound is not callable");
-  }
-  var self = this;
-  var args = Array.prototype.slice.call(arguments, 1);
-  var fNOP = function () { };
-  var fBound = function () {
-    var bindArgs = Array.prototype.slice.call(arguments);
-    return self.apply(this instanceof fNOP ? this : context, args.concat(bindArgs));
-  }
-  fNOP.prototype = this.prototype;
-  fBound.prototype = new fNOP();
-  return fBound;
-}
-
-//-------------分割线
-//写一个方法把0和1互转（0置1，1置0）
-function change(str) {
-  let a = str.split('').map((i)=>{
-    if(i==='1'){
-      i = '0';
-      return i;
-    }
-    if(i==='0'){
-      i = '1';
-      return i;
-    }
-  }).join('')
-  return a
-}
-var a = '10201040101001'
-var b = change(a)
-console.log(b)
-
-
-
+let a =  'abcabcbb';
+// let a =  'dvdfd';
+let b = lengthOfLongestSubstring(a);
+console.log(b);
