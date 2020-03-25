@@ -1,47 +1,43 @@
-// 无重复字符的最长子串
-// 给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
+// 编写一个函数来查找字符串数组中的最长公共前缀。
+
+// 如果不存在公共前缀，返回空字符串 ""。
 
 // 示例 1:
 
-// 输入: "abcabcbb"
-// 输出: 3 
-// 解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
+// 输入: ["flower","flow","flight"]
+// 输出: "fl"
 // 示例 2:
 
-// 输入: "bbbbb"
-// 输出: 1
-// 解释: 因为无重复字符的最长子串是 "b"，所以其长度为 1。
-// 示例 3:
+// 输入: ["dog","racecar","car"]
+// 输出: ""
+// 解释: 输入不存在公共前缀。
+// 说明:
 
-// 输入: "pwwkew"
-// 输出: 3
-// 解释: 因为无重复字符的最长子串是 "wke"，所以其长度为 3。
-//      请注意，你的答案必须是 子串 的长度，"pwke" 是一个子序列，不是子串。
-var lengthOfLongestSubstring = function (s) {
-  if (s.length === 0) return 0
-  let nums = [s[0]];
-  let res = 1;
-  for (let i = 1; i < s.length; i++) {
-      let index = nums.indexOf(s[i]);
-      if (index < 0) {
-          nums.push(s[i]);
-      } else {
-          res = res > nums.length ? res : nums.length;
-          nums.splice(0, index + 1);
-          nums.push(s[i]);
-      }
+// 所有输入只包含小写字母 a-z 。
+var longestCommonPrefix = function (strs) {
+  if (strs.length === 0) {
+    return "";
   }
-  return res > nums.length ? res : nums.length;
+  let arr = [];
+  let x = 0;
+  let temp;
+  let flag = true;
+  while (flag) {
+    strs.map((i) => {
+      arr.push(i.substring(0, x + 1));
+    });
+    temp = [...new Set(arr)];
+    if (temp.length > 1) {
+      flag = false;
+    } else {
+      x += 1;
+      arr = [];
+    }
+  }
+  return temp.length > 0 ? temp[0].substring(0,x) : "";
 };
 
-// abcabcbb
-// bbbbb
-// pwwkew
-// aab
-// dvdf
-// "aabaab!bb"
-
-let a =  'abcabcbb';
-// let a =  'dvdfd';
-let b = lengthOfLongestSubstring(a);
-console.log(b);
+// var a = ["dog", "racecar", "car"];
+var a = ["dobg", "dobcecar", "dobr"];
+var b = longestCommonPrefix(a);
+console.log(b)
