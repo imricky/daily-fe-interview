@@ -14,54 +14,65 @@
 // 说明:
 
 // 所有输入只包含小写字母 a-z 。
-var longestCommonPrefix = function (strs) {
-  if (strs.length === 0) {
-    return "";
-  }
-  if(strs.length === 1){
-    return strs[0];
-  }
-  let arr = [];
-  let x = 0;
-  let temp = [];
-  let flag = true;
-  let minStrsLength = strs.reduce((total,curValue,curIndex,array)=>{
-    let length = curValue.length;
-    if(length === 0){
-      flag = false; 
-    }
-    if(length > total){
-      total = length;
-    }
-    return total;
-  },0)
-  while (flag && x < minStrsLength) {
-    for(let i = 0;i<strs.length;i++){
-      if(strs[i] === ""){
-        arr = [];
-        flag = false;
-        break;
-      }else{
-        arr.push(strs[i].substring(0, x + 1));
+// var longestCommonPrefix = function (strs) {
+//   if (strs.length === 0) {
+//     return "";
+//   }
+//   if(strs.length === 1){
+//     return strs[0];
+//   }
+//   let arr = [];
+//   let x = 0;
+//   let temp = [];
+//   let flag = true;
+//   let minStrsLength = strs.reduce((total,curValue,curIndex,array)=>{
+//     let length = curValue.length;
+//     if(length === 0){
+//       flag = false; 
+//     }
+//     if(length > total){
+//       total = length;
+//     }
+//     return total;
+//   },0)
+//   while (flag && x < minStrsLength) {
+//     for(let i = 0;i<strs.length;i++){
+//       if(strs[i] === ""){
+//         arr = [];
+//         flag = false;
+//         break;
+//       }else{
+//         arr.push(strs[i].substring(0, x + 1));
+//       }
+//     }
+
+//     temp = [...new Set(arr)];
+//     if (temp.length > 1) {
+//       flag = false;
+//     } else {
+//       x += 1;
+//       arr = [];
+//     }
+//   }
+//   return temp.length > 0 ? temp[0].substring(0,x) : "";
+// };
+
+var longestCommonPrefix = function(strs) {
+  var re = '';
+  if (!strs.length) return re;
+  for (var j=0;j<strs[0].length;j++){//第j位
+      for (var i=1;i<strs.length;i++){//第i个
+          if (strs[i][j]!=strs[0][j]) return re
       }
-    }
-
-    temp = [...new Set(arr)];
-    if (temp.length > 1) {
-      flag = false;
-    } else {
-      x += 1;
-      arr = [];
-    }
+      re += strs[0][j];
   }
-  return temp.length > 0 ? temp[0].substring(0,x) : "";
+  return re;
 };
-
 // var a = ["dog", "racecar", "car"];
 // var a = ["dobg", "dobcecar", "dobr"];
 // var a = ["", "", ""];
 // var a = ["","b"];
-// var a = ["abca","abc"];
+var a = ["abca","abc"];
 
 var b = longestCommonPrefix(a);
 console.log(b)
