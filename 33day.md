@@ -15,7 +15,27 @@
 ] -->
 
 ```javascript
-var threeSum = function(nums) {
-  
+var threeSum = function (nums) {
+  nums = nums.sort((x, y) =>  {return (x - y)} );
+  let ab = {};
+  let final = [];
+  for (let i = 0; i < nums.length - 2 ; i++) {
+    if (i > 0 && nums[i] === nums[i - 1]) continue;
+    let l = i + 1;
+    let r = nums.length - 1;
+    while (l < r) {
+      if (l < r && nums[l] + nums[r] + nums[i] === 0 && !ab[`${nums[i]}${nums[l]}${nums[r]}`]) {
+        final.push([nums[i], nums[l], nums[r]]);
+        ab[`${nums[i]}${nums[l]}${nums[r]}`] = true;
+      }
+      if (nums[l] + nums[r] + nums[i] < 0) {
+        l++;
+      } else {
+        r--;
+      }
+    }
+  }
+  return final;
+
 };
 ```
