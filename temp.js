@@ -1,78 +1,65 @@
-// 编写一个函数来查找字符串数组中的最长公共前缀。
+// 三数之和
+// 给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有满足条件且不重复的三元组。
 
-// 如果不存在公共前缀，返回空字符串 ""。
+// 注意：答案中不可以包含重复的三元组。
 
-// 示例 1:
 
-// 输入: ["flower","flow","flight"]
-// 输出: "fl"
-// 示例 2:
 
-// 输入: ["dog","racecar","car"]
-// 输出: ""
-// 解释: 输入不存在公共前缀。
-// 说明:
+// 示例：
 
-// 所有输入只包含小写字母 a-z 。
-// var longestCommonPrefix = function (strs) {
-//   if (strs.length === 0) {
-//     return "";
-//   }
-//   if(strs.length === 1){
-//     return strs[0];
-//   }
-//   let arr = [];
-//   let x = 0;
-//   let temp = [];
-//   let flag = true;
-//   let minStrsLength = strs.reduce((total,curValue,curIndex,array)=>{
-//     let length = curValue.length;
-//     if(length === 0){
-//       flag = false; 
-//     }
-//     if(length > total){
-//       total = length;
-//     }
-//     return total;
-//   },0)
-//   while (flag && x < minStrsLength) {
-//     for(let i = 0;i<strs.length;i++){
-//       if(strs[i] === ""){
-//         arr = [];
-//         flag = false;
-//         break;
-//       }else{
-//         arr.push(strs[i].substring(0, x + 1));
-//       }
-//     }
+// 给定数组 nums = [-1, 0, 1, 2, -1, -4]，
 
-//     temp = [...new Set(arr)];
-//     if (temp.length > 1) {
-//       flag = false;
-//     } else {
-//       x += 1;
-//       arr = [];
-//     }
-//   }
-//   return temp.length > 0 ? temp[0].substring(0,x) : "";
-// };
+// 满足要求的三元组集合为：
+// [
+//   [-1, 0, 1],
+//   [-1, -1, 2]
+// ]
 
-var longestCommonPrefix = function(strs) {
-  var re = '';
-  if (!strs.length) return re;
-  for (var j=0;j<strs[0].length;j++){//第j位
-      for (var i=1;i<strs.length;i++){//第i个
-          if (strs[i][j]!=strs[0][j]) return re
-      }
-      re += strs[0][j];
+var threeSum = function (nums) {
+  if (nums.length < 3) {
+    return [];
   }
-  return re;
-};
-// var a = ["dog", "racecar", "car"];
-// var a = ["dobg", "dobcecar", "dobr"];
-// var a = ["", "", ""];
-// var a = ["","b"];
-var a = ["abca","abc"];
+  if (nums.length === 3) {
+    if (nums[0] + nums[1] + nums[2] === 0) {
+      return [nums];
+    } else {
+      return [];
+    }
+  }
+  //如果全是大于0
+  let flagAll = nums.every((i) => {
+    i >= 0;
+  });
+  if (flagAll) {
+    return [];
+  }
 
-var b = longestCommonPrefix(a);
+
+  let final = [];
+  let ab = [];
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = 1; j < nums.length; j++) {
+      for (let k = 2; k < nums.length; k++) {
+        if (j !== k && i !== j && k !== i) {
+          if (nums[i] + nums[j] + nums[k] === 0) {
+            let re = [nums[i], nums[j], nums[k]];
+            if(!ab.includes(re.sort().toString())){
+              ab.push(re.sort().toString());
+              final.push(re);
+            }
+          }
+        }
+      }
+    }
+  }
+  return final;
+};
+// var a = [-1, 0, 1, 2, -1, -4];
+// var a = [0,0,0];
+// var a = [0,7,-4,-7,0,14,-6,-4,-12,11,4,9,7,4,-10,8,10,5,4,14,6,0,-9,5,6,6,-11,1,-8,-1,2,-1,13,5,-1,-2,4,9,9,-1,-3,-1,-7,11,10,-2,-4,5,10,-15,-4,-6,-8,2,14,13,-7,11,-9,-8,-13,0,-1,-15,-10,13,-2,1,-1,-15,7,3,-9,7,-1,-14,-10,2,6,8,-6,-12,-13,1,-3,8,-9,-2,4,-2,-3,6,5,11,6,11,10,12,-11,-14];
+var a = [2,13,-2,-5,-1,10,6,-8,5,-5,7,-5,-14,-4,-5,10,-15,-2,-14,-6,10,6,-14,-14,-9,-11,8,-3,-2,12,-9,-14,3,5,-12,-13,-8,1,-14,12,12,0,14,5,4,-14,-8,4,-9,-7,14,-13,6,7,-12,5,12,11,-13,-5,0,-6,-12,-12,6,13,12,13,0,5,2,-11,13,1,9,2,2,-14,13,8,-14,4,2,8,-3,-3,-10,-14,-15,14,-12,1,-15,14,-4,6,12,-6,-4,-3,6,5];
+
+var b = threeSum(a);
 console.log(b)
+
+// console.log([1,2,3].sort().toString())
