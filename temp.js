@@ -1,51 +1,61 @@
-// 上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。 感谢 Marcos 贡献此图。
+// 合并两个有序链表
+// 将两个升序链表合并为一个新的升序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 
 
-// 示例:
+// 示例：
 
-// 输入: [0,1,0,2,1,0,1,3,2,1,2,1]
-// 输出: 6
-// 第一版，暴力解法
-// var trap = function (height) {
-//   let f = 0;
-//   for (let i = 0; i < height.length -1 ; i++) {
-//     let l_max = 0;
-//     let r_max = 0;
-//     // 左侧最大
-//     for (let j = i; j >= 0; j--) {
-//       l_max = Math.max(height[j], l_max);
-//     }
-//     // 右侧最大
-//     for (let j = i; j < height.length; j++) {
-//       r_max = Math.max(height[j], r_max);
-//     }
-//     f += Math.min(l_max, r_max) - height[i];
-//   }
-//   return f;
+// 输入：1->2->4, 1->3->4
+// 输出：1->1->2->3->4->4
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+// var mergeTwoLists = function(l1, l2) {
+
 // };
 
-var trap = function (height) {
-  let f = 0; // 最后的值
-  let l = 0; // 左指针
-  let r = height.length - 1; // 右边指针
+function resolve(npmList) {
+  const res = []
 
-  let l_max = height[0];
-  let r_max = height[height.length - 1];
-  while (l <= r) {
-    l_max = Math.max(l_max, height[l]);
-    r_max = Math.max(r_max, height[r]);
+  function dfs(npmList) {
+    if (npmList.length === 0) return
 
-    if (l_max < r_max) {
-      f += l_max - height[l];
-      l++;
-    }else{
-      f += r_max-height[r];
-      r--;
-    }
+    npmList.forEach((npm) => {
+      const { name, require = [] } = npm
+      dfs(require)
+      !res.includes(name) && res.push(name)
+    })
+    return
   }
-  return f;
+  dfs(npmList)
+  return res
 }
 
 
-var a = [5, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1];
-var b = trap(a);
-console.log(b);
+console.log(resolve([{
+  name: 'page.js',
+  require: [{
+    name: 'A.js',
+    require: [{
+      name: 'B.js',
+      require: [{
+        name: 'C.js'
+      }]
+    }]
+  }, {
+    name: 'D.js',
+    require: [{
+      name: 'C.js'
+    }, {
+      name: 'E.js'
+    }]
+  }]
+}]))
