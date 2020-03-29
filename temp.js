@@ -40,7 +40,27 @@ function resolve(npmList) {
 }
 
 
-console.log(resolve([{
+
+function resolve2(arr) {
+  let res = [];
+  function dfs(list) {
+    if (list.length === 0) return;
+    list.forEach(i => {
+      let {name,require = []} = i;
+      dfs(require);
+      if(!res.includes(name)){
+        res.push(name);
+      }
+    })
+    return;
+  }
+  dfs(arr);
+  return res;
+
+}
+
+
+console.log(resolve2([{
   name: 'page.js',
   require: [{
     name: 'A.js',
